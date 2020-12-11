@@ -9,6 +9,8 @@
 
 - Hot Reload in IntelliJ: https://dzone.com/articles/spring-boot-application-live-reload-hot-swap-with
 
+- Exception Handling: https://www.toptal.com/java/spring-boot-rest-api-error-handling
+
 ### Execution
 Using IntelliJ IDEA run the main method
 ctrl + f9 to build
