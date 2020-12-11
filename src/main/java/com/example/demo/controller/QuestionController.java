@@ -32,9 +32,8 @@ public class QuestionController {
     // TODO caches
     // TODO security
     // TODO test
-
-    // FIXME remove this
-    private final QuestionRepository questionRepository;
+    // TODO postman auth script
+    // TODO Docker
 
     private final QuestionService questionService;
     private final MyHelper myHelper;
