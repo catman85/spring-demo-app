@@ -5,9 +5,9 @@ import com.example.demo.model.Question;
 import com.example.demo.model.User;
 import com.example.demo.repository.QuestionRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.util.MyHelper;
 import com.example.demo.view.dto.QuestionDto;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,9 +22,11 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
     private final UserRepository userRepository;
+    private final MyHelper myHelper;
 
     @Override
     public List<QuestionDto> findAll() {
+        myHelper.simulateLowDevice((long)4000);
         List<Question> list = questionRepository.findAll();
         return list.stream()
                 .map(this::convertFromEntityToDto).collect(Collectors.toList());

@@ -5,6 +5,8 @@ import com.example.demo.service.QuestionService;
 import com.example.demo.util.MyHelper;
 import com.example.demo.view.dto.QuestionDto;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,7 @@ public class QuestionController {
     private final MyHelper myHelper;
 
     @GetMapping(produces = "application/json")
+    @Cacheable("questions")
     public Page<QuestionDto> getQuestions(Pageable pageable) {
         return myHelper.convertListToPage(questionService.findAll(), pageable);
     }
@@ -49,6 +52,7 @@ public class QuestionController {
     }
 
     @PostMapping
+    @CacheEvict(value="questions", allEntries = true)
     public ResponseEntity<?> createQuestion(@Valid @RequestBody QuestionDto question) {
         questionService.save(question);
         return ResponseEntity.ok().build();
@@ -56,6 +60,7 @@ public class QuestionController {
     }
 
     @PutMapping("/{questionId}")
+    @CacheEvict(value="questions", allEntries = true)
     public ResponseEntity<?> updateQuestion(@PathVariable Long questionId, @Valid @RequestBody QuestionDto questionRequest) {
         try {
             questionService.update(questionId, questionRequest);
@@ -69,6 +74,7 @@ public class QuestionController {
 
 
     @DeleteMapping("/{questionId}")
+    @CacheEvict(value="questions", key="#questionId")
     public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
         questionService.delete(questionId);
         return ResponseEntity.ok().build();
