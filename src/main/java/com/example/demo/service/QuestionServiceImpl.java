@@ -26,7 +26,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<QuestionDto> findAll() {
-        myHelper.simulateLowDevice((long)4000);
+//        myHelper.simulateLowDevice((long)4000);
         List<Question> list = questionRepository.findAll();
         return list.stream()
                 .map(this::convertFromEntityToDto).collect(Collectors.toList());

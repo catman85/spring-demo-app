@@ -2,12 +2,34 @@ version: '3.3'
 services:
   database:
     image: 'postgres:latest'
+    container_name: 'postgres'
     env_file:
       - database.env
     volumes:
       - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
     ports:
       - '5432:5432'
+    networks:
+      - back-tier
+
+  spring-boot:
+    container_name: 'spring-boot-demo'
+    build:
+      context: .
+      dockerfile: springboot.dockerfile
+    ports:
+      - '8080:8080'
+    depends_on:
+      - database
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - back-tier
+    links:
+      - "database:0.0.0.0"
 
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
+# for some reason docker compose names the volume like "project folder + volume name"
+networks:
+  back-tier:

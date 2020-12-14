@@ -31,11 +31,12 @@ import lombok.extern.java.Log;
 @Log
 public class QuestionController {
 
-    // TODO caches
-    // TODO security
-    // TODO test
-    // TODO postman auth script
     // TODO Docker
+    // TODO handling secrets in git
+
+    // TODO security
+    // TODO postman auth script
+    // TODO test
 
     private final QuestionService questionService;
     private final MyHelper myHelper;
@@ -74,7 +75,7 @@ public class QuestionController {
 
 
     @DeleteMapping("/{questionId}")
-    @CacheEvict(value="questions", key="#questionId")
+    @CacheEvict(value="questions", allEntries = true)
     public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
         questionService.delete(questionId);
         return ResponseEntity.ok().build();
