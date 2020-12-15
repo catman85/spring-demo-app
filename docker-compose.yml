@@ -9,8 +9,6 @@ services:
       - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
     ports:
       - '5432:5432'
-    networks:
-      - back-tier
 
   spring-boot:
     container_name: 'spring-boot-demo'
@@ -18,18 +16,16 @@ services:
       context: .
       dockerfile: springboot.dockerfile
       args:
-        DB_URL: 'database'
+        DB_URL: database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/rainbow_database
     ports:
       - '8080:8080'
     depends_on:
       - database
-    volumes:
-      - ./:/usr/src/app
-    networks:
-      - back-tier
+#    volumes:
+#      - ./:/usr/src/app
 
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
 # for some reason docker compose names the volume like "project folder + volume name"
-networks:
-  back-tier:
