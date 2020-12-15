@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.repository.QuestionRepository;
 import com.example.demo.service.QuestionService;
 import com.example.demo.util.MyHelper;
 import com.example.demo.view.dto.QuestionDto;
@@ -31,9 +30,6 @@ import lombok.extern.java.Log;
 @Log
 public class QuestionController {
 
-    // TODO Docker
-    // TODO handling secrets in git
-
     // TODO security
     // TODO postman auth script
     // TODO test
@@ -53,7 +49,7 @@ public class QuestionController {
     }
 
     @PostMapping
-    @CacheEvict(value="questions", allEntries = true)
+    @CacheEvict(value = "questions", allEntries = true)
     public ResponseEntity<?> createQuestion(@Valid @RequestBody QuestionDto question) {
         questionService.save(question);
         return ResponseEntity.ok().build();
@@ -61,8 +57,9 @@ public class QuestionController {
     }
 
     @PutMapping("/{questionId}")
-    @CacheEvict(value="questions", allEntries = true)
-    public ResponseEntity<?> updateQuestion(@PathVariable Long questionId, @Valid @RequestBody QuestionDto questionRequest) {
+    @CacheEvict(value = "questions", allEntries = true)
+    public ResponseEntity<?> updateQuestion(@PathVariable Long questionId,
+                                            @Valid @RequestBody QuestionDto questionRequest) {
         try {
             questionService.update(questionId, questionRequest);
             return ResponseEntity.ok().build();
@@ -75,7 +72,7 @@ public class QuestionController {
 
 
     @DeleteMapping("/{questionId}")
-    @CacheEvict(value="questions", allEntries = true)
+    @CacheEvict(value = "questions", allEntries = true)
     public ResponseEntity<?> deleteQuestion(@PathVariable Long questionId) {
         questionService.delete(questionId);
         return ResponseEntity.ok().build();

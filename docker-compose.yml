@@ -15,8 +15,6 @@ services:
     build:
       context: .
       dockerfile: springboot.dockerfile
-      args:
-        DB_URL: database
     # overwriting the setting in application.properties
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/rainbow_database

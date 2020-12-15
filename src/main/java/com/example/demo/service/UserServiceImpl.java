@@ -27,4 +27,12 @@ public class UserServiceImpl implements UserService{
 
         return userDtoList;
     }
+
+    @Override
+    public void newUser(UserDto userDto) {
+        User newUser = new User();
+        newUser.setName(userDto.getName());
+        newUser.setSurname(userDto.getSurname());
+        userRepository.save(newUser);
+    }
 }
