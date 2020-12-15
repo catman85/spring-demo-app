@@ -1,4 +1,4 @@
-##db start
+## Start application with docker
 ```docker-compose up -d```
 ##db interact
 ```docker exec -it postgres psql --host=database --username=unicorn_user --dbname=rainbow_database```

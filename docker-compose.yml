@@ -17,15 +17,14 @@ services:
       dockerfile: springboot.dockerfile
       args:
         DB_URL: database
+    # overwriting the setting in application.properties
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/rainbow_database
     ports:
       - '8080:8080'
     depends_on:
       - database
-#    volumes:
-#      - ./:/usr/src/app
 
 volumes:
-  database-data: # named volumes can be managed easier using docker-compose
-# for some reason docker compose names the volume like "project folder + volume name"
+  database-data:
+# for some reason docker compose names the volume like "project folder + volume name"!!
