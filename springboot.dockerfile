@@ -11,11 +11,11 @@ RUN apk add --no-cache maven
 # RUN addgroup -S spring && adduser -S spring -G spring
 # USER spring:spring
 
-ENV APP_DIR /home/spring/app
+ARG APP_DIR=$HOME/app
 # VOLUME ${APP_DIR}
 WORKDIR ${APP_DIR}
 COPY . ${APP_DIR}
 
+# CMD ["mvn","clean","install"]
+RUN mvn clean install
 ENTRYPOINT ["java","-jar","target/demo-0.0.1-SNAPSHOT.jar"]
-
-# ENTRYPOINT ["mvn","clean","install"]

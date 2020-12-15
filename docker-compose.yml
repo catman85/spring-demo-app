@@ -17,6 +17,8 @@ services:
     build:
       context: .
       dockerfile: springboot.dockerfile
+      args:
+        DB_URL: 'database'
     ports:
       - '8080:8080'
     depends_on:
@@ -25,8 +27,6 @@ services:
       - ./:/usr/src/app
     networks:
       - back-tier
-    links:
-      - "database:0.0.0.0"
 
 volumes:
   database-data: # named volumes can be managed easier using docker-compose
