@@ -6,11 +6,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -33,6 +37,7 @@ public class User {
             sequenceName = "user_sequence",
             initialValue = 1
     )
+    @Column(name = "id")
     private Long id;
 
     @NotBlank
@@ -42,6 +47,10 @@ public class User {
     @NotBlank
     @Size(min = 3, max = 100)
     private String surname;
+
+    @OneToOne(cascade = CascadeType.ALL,targetEntity = Account.class)
+    @PrimaryKeyJoinColumn
+    private Account account;
 
     @OneToMany(targetEntity = Question.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore // to stop the recursion
