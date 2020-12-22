@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.example.demo.permissions.ApplicationUserPermission.COURSE_READ;
-import static com.example.demo.permissions.ApplicationUserPermission.COURSE_WRITE;
-import static com.example.demo.permissions.ApplicationUserPermission.STUDENT_READ;
-import static com.example.demo.permissions.ApplicationUserPermission.STUDENT_WRITE;
+import static com.example.demo.permissions.ApplicationUserPermission.QUESTION_READ;
+import static com.example.demo.permissions.ApplicationUserPermission.QUESTION_WRITE;
+import static com.example.demo.permissions.ApplicationUserPermission.USER_READ;
+import static com.example.demo.permissions.ApplicationUserPermission.USER_WRITE;
 
 public enum ApplicationUserRole {
-    STUDENT(getStudentPrivileges()),
+    NORMAL(getNormalPrivileges()),
     ADMIN(getAdminPrivileges());
 
     private final Set<ApplicationUserPermission> permissions;
@@ -33,19 +33,17 @@ public enum ApplicationUserRole {
         return permissions;
     }
 
-    private static HashSet<ApplicationUserPermission> getStudentPrivileges() {
+    private static HashSet<ApplicationUserPermission> getNormalPrivileges() {
         HashSet<ApplicationUserPermission> hashSet = new HashSet<ApplicationUserPermission>();
-        hashSet.add(STUDENT_WRITE);
-        hashSet.add(STUDENT_READ);
+        hashSet.add(QUESTION_WRITE);
+        hashSet.add(QUESTION_READ);
         return hashSet;
     }
 
     private static HashSet<ApplicationUserPermission> getAdminPrivileges() {
         HashSet<ApplicationUserPermission> hashSet = new HashSet<ApplicationUserPermission>();
-        hashSet.add(STUDENT_WRITE);
-        hashSet.add(STUDENT_READ);
-        hashSet.add(COURSE_WRITE);
-        hashSet.add(COURSE_READ);
+        hashSet.add(USER_WRITE);
+        hashSet.add(USER_READ);
         return hashSet;
     }
 }

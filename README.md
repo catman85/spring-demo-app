@@ -13,6 +13,12 @@ Start postgres and the spring boot service
 ### Interact with the postgres container
 ```docker exec -it postgres psql --host=database --username=unicorn_user --dbname=rainbow_database```
 
+### To create the schema
+The first time you run the spring boot app
+use
+```spring.jpa.hibernate.ddl-auto = create```
+in ***application.properties***
+
 ### Execution
 Using IntelliJ IDEA run the main method
 ctrl + f9 to build, and trigger the hot-reload

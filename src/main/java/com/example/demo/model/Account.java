@@ -9,14 +9,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Entity
 @Table(name = "accounts")
 @Data
-//@Builder
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@Builder // if we use this pattern the default bools won't work
 public class Account {
     @Id
     @GeneratedValue(generator = "user_generator")
