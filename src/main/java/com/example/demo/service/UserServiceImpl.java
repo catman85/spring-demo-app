@@ -4,7 +4,6 @@ import com.example.demo.dto.user.UserRequestDto;
 import com.example.demo.dto.user.UserResponseDto;
 import com.example.demo.model.Account;
 import com.example.demo.model.User;
-import com.example.demo.repository.AccountRepository;
 import com.example.demo.repository.UserRepository;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
 
     public List<UserResponseDto> findAll() {
@@ -41,12 +39,12 @@ public class UserServiceImpl implements UserService {
     public void newUser(UserRequestDto userRequestDto) {
         User newUser = new User();
         Account newAccount = new Account();
-
+        // If we use the builder pattern here the default values
+        // from the entity won't be assigned
         newAccount.setUsername(userRequestDto.getUsername());
         newAccount.setPassword(passwordEncoder.encode(userRequestDto.getPassword()));
         newAccount.setRole(userRequestDto.getGrantedAuthorities());
         newAccount.setUser(newUser);
-//        accountRepository.save(newAccount);
 
         newUser.setName(userRequestDto.getName());
         newUser.setSurname(userRequestDto.getSurname());

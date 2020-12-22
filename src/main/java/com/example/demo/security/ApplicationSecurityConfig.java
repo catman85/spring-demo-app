@@ -31,9 +31,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // No Auth
+        // No Auth for dev purposes
         http
-                .csrf().disable()
+                .csrf().disable()// if it is enabled we won't be able to do post requests
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*")
                 .permitAll()

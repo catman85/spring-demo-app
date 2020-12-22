@@ -1,14 +1,11 @@
 package com.example.demo.model;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,6 +15,7 @@ import lombok.Data;
 @Entity
 @Table(name = "accounts")
 @Data
+//@Builder
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
     @Id
@@ -28,11 +26,9 @@ public class Account {
             initialValue = 1
     )
     @Column(name = "id")
-//    @PrimaryKeyJoinColumn
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
-//    @PrimaryKeyJoinColumn
     private User user;
 
     @Column(unique = true)
@@ -43,12 +39,12 @@ public class Account {
 
     private String role;
 
-    private boolean isAccountNonExpired;
+    private boolean isAccountNonExpired = true;
 
-    private boolean isAccountNonLocked;
+    private boolean isAccountNonLocked = true;
 
-    private boolean isCredentialsNonExpired;
+    private boolean isCredentialsNonExpired = true;
 
-    private boolean isEnabled;
+    private boolean isEnabled = true;
 }
 
