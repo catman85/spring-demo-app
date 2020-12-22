@@ -1,12 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.user.UserRequestDto;
 import com.example.demo.service.UserService;
-import com.example.demo.service.UserServiceImpl;
 import com.example.demo.util.MyHelper;
-import com.example.demo.view.dto.UserDto;
+import com.example.demo.dto.user.UserResponseDto;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -35,16 +33,16 @@ public class UserController {
 
     @GetMapping(produces = "application/json")
     @Cacheable("users")
-    public Page<UserDto> getUsers(Pageable pageable) {
+    public Page<UserResponseDto> getUsers(Pageable pageable) {
         log.fine("Get Users Controller");
-        List<UserDto> list = userService.findAll();
+        List<UserResponseDto> list = userService.findAll();
         return myHelper.convertListToPage(list, pageable);
     }
 
     @PostMapping
     @CacheEvict(value = "users", allEntries = true)
-    public void newUser(@RequestBody @Valid UserDto userDto){
-        userService.newUser(userDto);
+    public void newUser(@RequestBody @Valid UserRequestDto userRequestDto){
+        userService.newUser(userRequestDto);
     }
 
 }

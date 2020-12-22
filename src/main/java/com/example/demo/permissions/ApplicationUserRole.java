@@ -1,9 +1,8 @@
 package com.example.demo.permissions;
 
-import com.google.common.collect.Sets;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,9 +12,8 @@ import static com.example.demo.permissions.ApplicationUserPermission.STUDENT_REA
 import static com.example.demo.permissions.ApplicationUserPermission.STUDENT_WRITE;
 
 public enum ApplicationUserRole {
-    STUDENT(Sets.newHashSet()),
-    ADMIN(Sets.newHashSet(COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE)),
-    ADMINTRAINEE(Sets.newHashSet(COURSE_READ, STUDENT_READ));
+    STUDENT(getStudentPrivileges()),
+    ADMIN(getAdminPrivileges());
 
     private final Set<ApplicationUserPermission> permissions;
 
@@ -33,5 +31,21 @@ public enum ApplicationUserRole {
                 .collect(Collectors.toSet());
         permissions.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
         return permissions;
+    }
+
+    private static HashSet<ApplicationUserPermission> getStudentPrivileges() {
+        HashSet<ApplicationUserPermission> hashSet = new HashSet<ApplicationUserPermission>();
+        hashSet.add(STUDENT_WRITE);
+        hashSet.add(STUDENT_READ);
+        return hashSet;
+    }
+
+    private static HashSet<ApplicationUserPermission> getAdminPrivileges() {
+        HashSet<ApplicationUserPermission> hashSet = new HashSet<ApplicationUserPermission>();
+        hashSet.add(STUDENT_WRITE);
+        hashSet.add(STUDENT_READ);
+        hashSet.add(COURSE_WRITE);
+        hashSet.add(COURSE_READ);
+        return hashSet;
     }
 }

@@ -5,11 +5,14 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
@@ -17,35 +20,35 @@ import lombok.Data;
 @Data
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account {
-
     @Id
+    @GeneratedValue(generator = "user_generator")
+    @SequenceGenerator(
+            name = "user_generator",
+            sequenceName = "user_sequence",
+            initialValue = 1
+    )
+    @Column(name = "id")
+//    @PrimaryKeyJoinColumn
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
+//    @PrimaryKeyJoinColumn
     private User user;
 
-    @NotBlank
     @Column(unique = true)
     private String username;
 
     @Column(length = 60)
-    @NotBlank
     private String password;
 
-//    private Set<? extends GrantedAuthority> grantedAuthorities;
+    private String role;
 
-    @NotBlank
-    @Column(columnDefinition = "bool default true")
     private boolean isAccountNonExpired;
 
-    @NotBlank
-    @ColumnDefault("true")
     private boolean isAccountNonLocked;
 
-    @NotBlank
     private boolean isCredentialsNonExpired;
 
-    @NotBlank
     private boolean isEnabled;
 }
 

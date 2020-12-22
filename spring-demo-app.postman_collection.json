@@ -133,6 +133,99 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"surname\": \"surname\",\r\n    \"username\": \"username\",\r\n    \"password\": \"password\",\r\n    \"grantedAuthorities\": \"STUDENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Cache",
+			"item": [
+				{
+					"name": "evict all caches",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}cache/clearAll/",
+							"host": [
+								"{{url}}cache"
+							],
+							"path": [
+								"clearAll",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "httpBasic()",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}users?username=user&password=9286c0d8-ab28-4e62-902b-150f1b86b1cc",
+							"host": [
+								"{{url}}users"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "user"
+								},
+								{
+									"key": "password",
+									"value": "9286c0d8-ab28-4e62-902b-150f1b86b1cc"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -162,7 +255,7 @@
 	],
 	"variable": [
 		{
-			"id": "61c65041-d19b-4dfa-9291-ee2b7a82ab3c",
+			"id": "5f8df5a9-8bba-4bf1-9d5e-5acfa2b9c05c",
 			"key": "url",
 			"value": "http://localhost:8080/"
 		}

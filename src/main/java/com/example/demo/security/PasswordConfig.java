@@ -10,8 +10,8 @@ public class PasswordConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        BCrypt, will internally generate a random salt.
-//        BCrypt will store the salt inside the hash value itself.
+        // BCrypt, will internally generate a random salt.
+        // BCrypt will store the salt inside the hash value itself.
         // It will generate a string of length 60
         return new BCryptPasswordEncoder(10);
     }

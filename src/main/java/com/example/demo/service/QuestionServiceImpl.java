@@ -6,7 +6,7 @@ import com.example.demo.model.User;
 import com.example.demo.repository.QuestionRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.util.MyHelper;
-import com.example.demo.view.dto.QuestionDto;
+import com.example.demo.dto.QuestionDto;
 
 import org.springframework.stereotype.Service;
 

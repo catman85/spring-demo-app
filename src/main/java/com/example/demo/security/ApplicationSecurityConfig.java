@@ -1,45 +1,45 @@
-//package com.example.demo.security;
-//
-//import com.example.demo.permissions.ApplicationUserRole;
-//import com.example.demo.service.UserService;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.config.http.SessionCreationPolicy;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//
-//import javax.crypto.SecretKey;
-//
-//@Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
-//public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//    private final PasswordEncoder passwordEncoder;
-//    private final UserService userService;
-//    private final SecretKey secretKey;
-//    private final JwtConfig jwtConfig;
-//
-//    @Autowired
-//    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-//                                     UserService applicationUserService,
-//                                     SecretKey secretKey,
-//                                     JwtConfig jwtConfig) {
-//        this.passwordEncoder = passwordEncoder;
-//        this.userService = applicationUserService;
-//        this.secretKey = secretKey;
-//        this.jwtConfig = jwtConfig;
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
+package com.example.demo.security;
+
+import com.example.demo.permissions.ApplicationUserRole;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.crypto.SecretKey;
+
+import lombok.RequiredArgsConstructor;
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private PasswordEncoder passwordEncoder;
+    private UserDetailsService userDetailsService;
+    private SecretKey secretKey;
+//    private JwtConfig jwtConfig;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // No Auth
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/", "index", "/css/*", "/js/*")
+                .permitAll()
+                .anyRequest()
+                .authenticated();
+
 //        http
 //                .csrf().disable()
 //                .sessionManagement()
@@ -52,8 +52,8 @@
 //                .antMatchers("/api/**").hasRole(ApplicationUserRole.STUDENT.name())
 //                .anyRequest()
 //                .authenticated();
-//    }
-//
+    }
+
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.authenticationProvider(daoAuthenticationProvider());
@@ -63,8 +63,8 @@
 //    public DaoAuthenticationProvider daoAuthenticationProvider() {
 //        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 //        provider.setPasswordEncoder(passwordEncoder);
-//        provider.setUserDetailsService(userService);
+//        provider.setUserDetailsService(userDetailsService);
 //        return provider;
 //    }
-//
-//}
+
+}
