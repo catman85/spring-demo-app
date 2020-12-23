@@ -6,136 +6,26 @@
 	},
 	"item": [
 		{
-			"name": "Question",
+			"name": "Login",
 			"item": [
 				{
-					"name": "Get Questions",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}questions/",
-							"host": [
-								"{{url}}questions"
-							],
-							"path": [
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Question By Id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}questions/1000",
-							"host": [
-								"{{url}}questions"
-							],
-							"path": [
-								"1000"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Question By Id Copy",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{url}}questions/1001",
-							"host": [
-								"{{url}}questions"
-							],
-							"path": [
-								"1001"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Post Question",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test\",\r\n    \"description\": \"desc_test\",\r\n    \"userId\": \"1\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
+					"name": "LOGIN NORMAL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let token = pm.response.headers.all()[0].value;\r",
+									"\r",
+									"console.log(token);\r",
+									"\r",
+									"pm.globals.set(\"jwt\", token);\r",
+									""
+								],
+								"type": "text/javascript"
 							}
-						},
-						"url": {
-							"raw": "{{url}}questions/",
-							"host": [
-								"{{url}}questions"
-							],
-							"path": [
-								""
-							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Question",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"update\",\r\n    \"description\": \"put controller\",\r\n    \"userId\": \"1\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}questions/1000",
-							"host": [
-								"{{url}}questions"
-							],
-							"path": [
-								"1000"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "User",
-			"item": [
-				{
-					"name": "Get Users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}users/",
-							"host": [
-								"{{url}}users"
-							],
-							"path": [
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New User",
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -144,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"name\",\r\n    \"surname\": \"surname\",\r\n    \"username\": \"username\",\r\n    \"password\": \"password\",\r\n    \"grantedAuthorities\": \"STUDENT\"\r\n}",
+							"raw": "{\r\n    \"username\" : \"username\",\r\n    \"password\" : \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -152,47 +42,55 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/users",
+							"raw": "{{url}}login",
 							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users"
+								"{{url}}login"
 							]
 						}
 					},
 					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Cache",
-			"item": [
+				},
 				{
-					"name": "evict all caches",
+					"name": "LOGIN ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let token = pm.response.headers.all()[0].value;\r",
+									"\r",
+									"console.log(token);\r",
+									"\r",
+									"pm.globals.set(\"jwt\", token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}cache/clearAll/",
+							"raw": "{{url}}login",
 							"host": [
-								"{{url}}cache"
-							],
-							"path": [
-								"clearAll",
-								""
+								"{{url}}login"
 							]
 						}
 					},
 					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Auth",
-			"item": [
+				},
 				{
 					"name": "httpBasic()",
 					"protocolProfileBehavior": {
@@ -227,15 +125,274 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
+		},
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "New User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"surname\": \"surname\",\r\n    \"username\": \"username\",\r\n    \"password\": \"password\",\r\n    \"grantedAuthorities\": \"NORMAL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users",
+							"host": [
+								"{{url}}users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Question",
+			"item": [
+				{
+					"name": "Get Questions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}questions/",
+							"host": [
+								"{{url}}questions"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Question By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}questions/1000",
+							"host": [
+								"{{url}}questions"
+							],
+							"path": [
+								"1000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Question By Id Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}questions/1001",
+							"host": [
+								"{{url}}questions"
+							],
+							"path": [
+								"1001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Question",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"test\",\r\n    \"description\": \"desc_test\",\r\n    \"userId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}questions/",
+							"host": [
+								"{{url}}questions"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Question",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"update\",\r\n    \"description\": \"put controller\",\r\n    \"userId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}questions/1000",
+							"host": [
+								"{{url}}questions"
+							],
+							"path": [
+								"1000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cache",
+			"item": [
+				{
+					"name": "evict all caches",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}cache/clearAll/",
+							"host": [
+								"{{url}}cache"
+							],
+							"path": [
+								"clearAll",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "6680f4dd-9115-4edb-b813-7d02a062f496",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -245,7 +402,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "4738b097-ee73-41ba-9827-d5b8556314d2",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -255,10 +411,8 @@
 	],
 	"variable": [
 		{
-			"id": "5f8df5a9-8bba-4bf1-9d5e-5acfa2b9c05c",
 			"key": "url",
 			"value": "http://localhost:8080/"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
