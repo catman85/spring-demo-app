@@ -1,5 +1,20 @@
-## Start application with docker
-Install dependencies and generate .jar
+## A **super** spring boot demo app
+
+**Featuring:** 
+- docker
+- postgres db  
+- hibernate
+- spring security
+  - roles
+  - permissions 
+  - jwt bearer token authorization
+- postman collections
+- logging 
+- lombock  
+- central exception handling 
+
+### Start application with docker
+Install dependencies (jdk11) and generate .jar
 - ```mvn clean install```
 
 Start postgres and the spring boot service

@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.QuestionDto;
 import com.example.demo.service.QuestionService;
 import com.example.demo.util.MyHelper;
-import com.example.demo.dto.QuestionDto;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,8 +29,6 @@ import lombok.extern.java.Log;
 @RequiredArgsConstructor // args need to be final
 @Log
 public class QuestionController {
-
-    // TODO test
 
     private final QuestionService questionService;
     private final MyHelper myHelper;
