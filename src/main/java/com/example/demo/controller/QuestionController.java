@@ -30,9 +30,6 @@ import lombok.extern.java.Log;
 @Log
 public class QuestionController {
 
-    // TODO preAuthorize
-    // TODO user crud
-    // TODO allow register for all
     // TODO test
 
     private final QuestionService questionService;

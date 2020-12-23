@@ -43,5 +43,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler(MaliciousAttemptException.class)
+    protected ResponseEntity<Object> handleMaliciousAttempt(
+            MaliciousAttemptException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND, ex);
+        return buildResponseEntity(apiError);
+    }
+
     //other exception handlers below
 }

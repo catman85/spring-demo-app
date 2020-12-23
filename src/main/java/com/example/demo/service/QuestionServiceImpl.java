@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.QuestionDto;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Question;
 import com.example.demo.model.User;
 import com.example.demo.repository.QuestionRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.util.MyHelper;
-import com.example.demo.dto.QuestionDto;
 
 import org.springframework.stereotype.Service;
 
@@ -44,7 +44,7 @@ public class QuestionServiceImpl implements QuestionService {
         Question q = new Question();
         User u = userRepository.findById(questionDto.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
-
+        myHelper.isRequestMadeByUser(u);
         q.setTitle(questionDto.getTitle());
         q.setDescription(questionDto.getDescription());
         q.setUser(u);
@@ -55,6 +55,7 @@ public class QuestionServiceImpl implements QuestionService {
     public void delete(Long questionId) {
         Question q = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
+        myHelper.isRequestMadeByUser(q.getUser());
         questionRepository.delete(q);
     }
 
@@ -62,6 +63,7 @@ public class QuestionServiceImpl implements QuestionService {
     public void update(Long questionId, QuestionDto questionDto) {
         Question q = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
+        myHelper.isRequestMadeByUser(q.getUser());
         User u = userRepository.findById(questionDto.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User Not Found"));
 

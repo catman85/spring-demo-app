@@ -49,7 +49,6 @@ public class User {
     private String surname;
 
     @OneToOne(cascade = CascadeType.ALL, targetEntity = Account.class)
-//    @PrimaryKeyJoinColumn
     private Account account;
 
     @OneToMany(targetEntity = Question.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

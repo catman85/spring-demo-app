@@ -51,6 +51,48 @@
 					"response": []
 				},
 				{
+					"name": "LOGIN NORMAL username2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let token = pm.response.headers.all()[0].value;\r",
+									"\r",
+									"console.log(token);\r",
+									"\r",
+									"pm.globals.set(\"jwt\", token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"username2\",\r\n    \"password\" : \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}login",
+							"host": [
+								"{{url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "LOGIN ADMIN",
 					"event": [
 						{
@@ -134,14 +176,7 @@
 					"name": "New User",
 					"request": {
 						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "POST",
 						"header": [],
@@ -155,9 +190,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}users",
+							"raw": "{{url}}register",
 							"host": [
-								"{{url}}users"
+								"{{url}}register"
 							]
 						}
 					},
@@ -223,7 +258,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Question By Id Copy",
+					"name": "Delete Question By Id",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -326,6 +361,69 @@
 		{
 			"name": "User",
 			"item": [
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}users/202",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"202"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name2\",\r\n    \"surname\": \"surname2\",\r\n    \"username\": \"username\",\r\n    \"password\": \"password\",\r\n    \"grantedAuthorities\": \"NORMAL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}users/1",
+							"host": [
+								"{{url}}users"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Get Users",
 					"request": {
